@@ -1,8 +1,6 @@
-// import './App.css';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.css';
-
 
 function App() {
   const [total, setTotal] = useState(0);
@@ -17,11 +15,6 @@ function App() {
     { value: .1, label: 'Grat Already Included (10%)' }
   ]
 
-  const handleChange = (selectedOption) => {
-    setSelectedOption(selectedOption);
-    console.log(`Option selected:`, selectedOption);
-  }
-
   useEffect(() => {
     if (selectedOption === '30%') {
       setPercentNumber(.3)
@@ -33,28 +26,25 @@ function App() {
     console.log('testing on useEffect', percentNumber)
   }, [percentNumber])
   
-
   useEffect(() => {
-    // setTip(total * selectedOption.value)
-    setFinalTotal(+total + +tip)
+    setFinalTotal(Math.round((+total + +tip)*100)/100)
   }, [tip])
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    console.log(`Option selected:`, selectedOption);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // console.log(total)
-    // console.log('Im selected option', selectedOption)
-    
-    setTip(total * selectedOption.value)
-    // console.log('I am tip amount', tip)
-    // setFinalTotal(+total + +tip)
-
+    setTip(Math.round((total * selectedOption.value)*100)/100)
   }
  
-
   return (
-    <div className="App">
+    <div class="card w-25 mx-auto text-dark bg-info position-absolute top-50 start-50 translate-middle">
+      <div class="card-body ">
       <header className="App-header">
-        <h1>Tip Calculator</h1>
+          <h1 class="text-center display-4">Tip Calculator</h1>
       </header>
       <form onSubmit={handleSubmit}>
         <div class="form-group">
@@ -67,9 +57,9 @@ function App() {
           <button type="submit" class="btn btn-primary mb-2" >Calculate</button>
         </div>
       </form>
-
       <div class="alert alert-primary" role="alert">
-        Tip amount is <b>{tip}</b>. Your total is <b>{finalTotal}</b>.
+        Tip amount is $<b>{tip}</b>. Your total is $<b>{finalTotal}</b>.
+      </div>
       </div>
     </div>
   );
