@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.css';
+import './custom.css';
 
 function App() {
   const [total, setTotal] = useState(0);
@@ -41,10 +42,10 @@ function App() {
   }
  
   return (
-    <div class="card w-25 mx-auto text-dark bg-info position-absolute top-50 start-50 translate-middle">
-      <div class="card-body ">
-      <header className="App-header">
-          <h1 class="text-center display-4">Tip Calculator</h1>
+    <div id='app-container'>
+      <div id="card-body">
+      <header>
+          <h1 id='header'>Tip Calculator</h1>
       </header>
       <form onSubmit={handleSubmit}>
         <div class="form-group">
