@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './custom.css';
 
 function App() {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const [percentNumber, setPercentNumber] = useState(0);
   const [tip, setTip] = useState(0);
@@ -28,7 +28,7 @@ function App() {
   }, [percentNumber])
   
   useEffect(() => {
-    setFinalTotal(Math.round((+total + +tip)*100)/100)
+    setFinalTotal((Math.round((+total + +tip)*100)/100).toFixed(2))
   }, [tip])
 
   const handleChange = (selectedOption) => {
@@ -38,7 +38,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setTip(Math.round((total * selectedOption.value)*100)/100)
+    setTip((Math.round((total * selectedOption.value) * 100) / 100).toFixed(2))
   }
  
   return (
