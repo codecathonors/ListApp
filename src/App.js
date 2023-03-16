@@ -10,12 +10,14 @@ function App() {
   const [tip, setTip] = useState(0);
   const [finalTotal, setFinalTotal] = useState(0);
 
+  //options variable for React Select
   const options = [
     { value: 0.2, label: "Average (20%)" },
     { value: 0.3, label: "Above Average (30%)" },
     { value: 0.1, label: "Grat Already Included (10%)" },
   ];
 
+  //useEffect only runs when percentNumber is updated
   useEffect(() => {
     if (selectedOption === "30%") {
       setPercentNumber(0.3);
@@ -27,19 +29,23 @@ function App() {
     console.log("testing on useEffect", percentNumber);
   }, [percentNumber]);
 
-  useEffect(() => {
-    setFinalTotal((Math.round((+total + +tip) * 100) / 100).toFixed(2));
-  }, [tip]);
-
+  //sets percentage option, this handleChange is connected to React Select
+  //selectedOption is determined by above useEffect
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
     console.log(`Option selected:`, selectedOption);
   };
 
+  //calculates tip
   const handleSubmit = (e) => {
     e.preventDefault();
     setTip((Math.round(total * selectedOption.value * 100) / 100).toFixed(2));
   };
+
+  //calculates final total (total + tip) and rounds to 2 decimal places
+  useEffect(() => {
+    setFinalTotal((Math.round((+total + +tip) * 100) / 100).toFixed(2));
+  }, [tip]);
 
   return (
     <div id="app-container">
